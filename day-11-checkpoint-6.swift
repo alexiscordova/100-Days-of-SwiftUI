@@ -10,10 +10,8 @@ struct Car {
     let maxGear = 5
     private(set) var currentGear: Int = 0 {
         didSet {
-            print("""
-Gear changed!
-New current gear: \(currentGear)
-""")
+            print("Gear changed!")
+            print("New current gear: \(currentGear)")
         }
     }
     
