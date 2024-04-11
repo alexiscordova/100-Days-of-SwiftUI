@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var baseUnitTemperature: Double = 0
+    @State private var baseUnitTemperature: Double?
     @State private var baseUnit = "Celsius"
     @State private var convertToUnit = "Fahrenheit"
     
     let units = ["Celsius", "Fahrenheit", "kelvin"]
     var convertedTemperature: Double {
+        guard let baseUnitTemperature = baseUnitTemperature else {
+            return 0
+        }
+        
         var convertedTempCelsius: Double = baseUnitTemperature
         
         if baseUnit == convertToUnit { return baseUnitTemperature }
@@ -43,7 +47,7 @@ struct ContentView: View {
             Form {
                 Section {
                     TextField(
-                        "Enter your base unit value",
+                        "Enter your base unit temperature",
                         value: $baseUnitTemperature,
                         format: .number
                     )
@@ -61,8 +65,10 @@ struct ContentView: View {
                     }
                 }
                 
-                Section("Output") {
-                    Text(convertedTemperature, format: .number)
+                if(baseUnitTemperature != nil) {
+                    Section("Output") {
+                        Text(convertedTemperature, format: .number)
+                    }
                 }
             }
             .navigationTitle("TempConvert")
