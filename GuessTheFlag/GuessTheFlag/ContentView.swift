@@ -95,15 +95,15 @@ Your final score is: \(currentScore)
         
         questionsAsked += 1
         
-        if questionsAsked > 8 {
-            maxQuestionsReached = true
-        }
-        
         showingScore = true
-        
     }
     
     func askQuestion() {
+        if questionsAsked > 8 {
+            maxQuestionsReached = true
+            return
+        }
+        
         shuffleCountries()
         
         if correctAnswers.contains(countries[correctAnswer]) {
