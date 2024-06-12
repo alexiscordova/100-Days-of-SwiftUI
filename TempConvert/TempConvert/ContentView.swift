@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var baseUnitTemperature: Double?
     @State private var baseUnit = "Celsius"
     @State private var convertToUnit = "Fahrenheit"
+    @FocusState private var baseUnitTempIsFocused: Bool
     
     let units = ["Celsius", "Fahrenheit", "kelvin"]
     var convertedTemperature: Double {
@@ -51,6 +52,8 @@ struct ContentView: View {
                         value: $baseUnitTemperature,
                         format: .number
                     )
+                    .keyboardType(.numberPad)
+                    .focused($baseUnitTempIsFocused)
                     
                     Picker("Base unit", selection: $baseUnit) {
                         ForEach(units, id: \.self) {
@@ -72,6 +75,13 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("TempConvert")
+            .toolbar {
+                if baseUnitTempIsFocused {
+                    Button("Done") {
+                        baseUnitTempIsFocused = false
+                    }
+                }
+            }
         }
     }
 }
